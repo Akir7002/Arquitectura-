@@ -1,0 +1,283 @@
+<mxfile host="app.diagrams.net" agent="GitHub Copilot" compressed="false" pages="6">
+  <diagram id="overview" name="01 - Vista general">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title1" value="Python Clean Architecture - vista general" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="700" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="client1" value="Cliente HTTP&#xa;Web / Mobile / Postman" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;fontStyle=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="170" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="api1" value="ENTRADA / ENTREGA&#xa;&#xa;FastAPI&#xa;Routers y DTOs HTTP&#xa;Dependency Injection" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="140" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="app1" value="APLICACION&#xa;&#xa;Casos de uso&#xa;Create, Get, Update&#xa;Delete, Authenticate" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;fontStyle=1;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="600" y="140" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="dom1" value="DOMINIO&#xa;&#xa;Entidad User&#xa;Email, Password, ID&#xa;Reglas y excepciones" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="900" y="140" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="infra1" value="ADAPTADORES&#xa;&#xa;SQLModel / PostgreSQL&#xa;Passlib / bcrypt&#xa;JWT / Alembic" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="140" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ports1" value="Dependencia invertida: los casos de uso conocen contratos; los adaptadores los implementan." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="340" y="410" width="720" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="o1" value="HTTP" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="client1" target="api1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o2" value="execute" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="api1" target="app1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o3" value="usa reglas" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="app1" target="dom1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o4" value="usa adaptadores" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="dom1" target="infra1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o5" value="contratos" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="ports1" target="app1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="layers" name="02 - Capas y carpetas">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title2" value="Capas y carpetas del proyecto" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="700" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="layerapi" value="1. ENTRADA / ENTREGA&#xa;&#xa;app/infra/api&#xa;&#xa;app.py&#xa;routers/root.py&#xa;routers/v1/user.py&#xa;routers/v1/auth.py&#xa;dependencies/*&#xa;extensions.py&#xa;lifespan.py" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;horizontal=1;startSize=32;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="280" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="layercore" value="2. NUCLEO&#xa;&#xa;app/core&#xa;&#xa;dtos/*&#xa;entities/user.py&#xa;value_objects/*&#xa;ports/*&#xa;usecases/user/*&#xa;exceptions.py" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;horizontal=1;startSize=32;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="370" y="110" width="280" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="layerinfra" value="3. ADAPTADORES&#xa;&#xa;app/infra/db&#xa;app/infra/auth&#xa;app/infra/security&#xa;&#xa;models/user.py&#xa;repositories/user.py&#xa;unit_of_work/*&#xa;auth/jwt.py&#xa;security/crypto.py&#xa;migrations/*" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;horizontal=1;startSize=32;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="700" y="110" width="280" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="layerext" value="4. EXTERNO&#xa;&#xa;PostgreSQL&#xa;OAuth2 client&#xa;Passlib / bcrypt&#xa;Uvicorn&#xa;Alembic CLI&#xa;.env" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;horizontal=1;startSize=32;fontStyle=1;verticalAlign=top;spacingTop=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="110" width="280" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="l1" value="HTTP" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="layerext" target="layerapi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l2" value="llama" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="layerapi" target="layercore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l3" value="implementa puertos" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="layerinfra" target="layercore">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="l4" value="conecta" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" edge="1" parent="1" source="layerinfra" target="layerext">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="layernote" value="Regla de dependencia&#xa;core no importa FastAPI, SQLModel, Passlib ni JWT.&#xa;La infraestructura implementa los contratos del core." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="260" y="650" width="820" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="components" name="03 - Componentes y conexiones">
+    <mxGraphModel dx="1340" dy="683" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title3" parent="1" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" value="Componentes principales y conexiones" vertex="1">
+          <mxGeometry height="40" width="700" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="router3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="ROUTERS&#xa;&#xa;user.py&#xa;create / get / patch / delete&#xa;&#xa;auth.py&#xa;token / me" vertex="1">
+          <mxGeometry height="170" width="240" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="deps3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="DEPENDENCIES&#xa;&#xa;get_user_repo&#xa;get_user_uow&#xa;get_hasher&#xa;get_token_provider&#xa;&#xa;FastAPI Depends" vertex="1">
+          <mxGeometry height="180" width="240" x="40" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="uc3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=12;" value="CASOS DE USO&#xa;&#xa;CreateUserUsecase&#xa;GetUserUsecase&#xa;UpdateUserUsecase&#xa;DeleteUserUsecase&#xa;AuthenticateUserUsecase" vertex="1">
+          <mxGeometry height="220" width="300" x="380" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="dto3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="DTOs&#xa;&#xa;CreateUserRequest&#xa;UpdateUser&#xa;UserResponse&#xa;TokenResponse" vertex="1">
+          <mxGeometry height="150" width="300" x="380" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="entity3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="ENTIDAD User&#xa;&#xa;id: ID&#xa;name: str&#xa;email: Email&#xa;password: Password&#xa;&#xa;Regla: name no vacio" vertex="1">
+          <mxGeometry height="190" width="240" x="780" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="vo3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="VALUE OBJECTS&#xa;&#xa;Email: formato valido&#xa;Password: 8 a 100 caracteres&#xa;ID: UUID valido o generado" vertex="1">
+          <mxGeometry height="160" width="240" x="780" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ports3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=12;" value="PUERTOS / CONTRATOS&#xa;&#xa;UserRepo&#xa;UserUnitOfWork&#xa;Hasher&#xa;&#xa;Protocol" vertex="1">
+          <mxGeometry height="180" width="220" x="1120" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="adap3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="ADAPTADORES&#xa;&#xa;UserRepo SQLModel&#xa;BaseUnitOfWork&#xa;Hasher Passlib&#xa;JWTProvider" vertex="1">
+          <mxGeometry height="180" width="220" x="1120" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" edge="1" parent="1" source="router3" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="deps3" value="Depends">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" edge="1" parent="1" source="deps3" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="uc3" value="inyecta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" edge="1" parent="1" source="router3" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="dto3" value="entrada / salida">
+          <mxGeometry relative="1" x="0.3412" y="-4" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c4" edge="1" parent="1" source="uc3" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="entity3" value="construye">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" edge="1" parent="1" source="entity3" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="vo3" value="valida">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" edge="1" parent="1" source="uc3" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="ports3" value="depende de">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="50" />
+              <mxPoint x="1040" y="50" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c7" edge="1" parent="1" source="adap3" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="ports3" value="implementa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="request" name="04 - Ciclo de una peticion">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title4" value="Ciclo completo de una peticion HTTP" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="800" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" value="1&#xa;Cliente&#xa;envia HTTP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="150" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" value="2&#xa;FastAPI&#xa;enruta y valida" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="240" y="150" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" value="3&#xa;Depends crea&#xa;componentes" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="440" y="150" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" value="4&#xa;Router llama&#xa;execute(...)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="640" y="150" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" value="5&#xa;Caso de uso&#xa;aplica reglas" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="840" y="150" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" value="6&#xa;Puerto llama&#xa;adaptador" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="150" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="r7" value="7&#xa;DB o servicio&#xa;externo" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="150" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="rback" value="RESPUESTA&#xa;Adaptador -&gt; caso de uso -&gt; DTO -&gt; router -&gt; FastAPI -&gt; cliente" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;fontStyle=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="300" y="350" width="800" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="rerrors" value="Errores HTTP&#xa;&#xa;422 validacion FastAPI&#xa;400 regla de usuario&#xa;401 credenciales o token&#xa;404 usuario inexistente&#xa;409 email duplicado" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="520" width="360" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="re1" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r1" target="r2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re2" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r2" target="r3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re3" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r3" target="r4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re4" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r4" target="r5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re5" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r5" target="r6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re6" style="endArrow=block;html=1;strokeColor=#000000;" edge="1" parent="1" source="r6" target="r7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="flows" name="05 - Flujos de usuario y auth">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title5" value="Flujos funcionales detallados" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="700" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="create5" value="CREAR USUARIO&#xa;&#xa;POST /api/v1/users&#xa;1. CreateUserRequest&#xa;2. Email + Password&#xa;3. Buscar email duplicado&#xa;4. Hashear password&#xa;5. Crear User con ID&#xa;6. UserRepo.save&#xa;7. UoW.commit&#xa;8. UserResponse / 201" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="300" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="login5" value="AUTENTICAR&#xa;&#xa;POST /api/v1/auth/token&#xa;1. Form username=email&#xa;2. Validar Email&#xa;3. Buscar por email&#xa;4. Hasher.verify&#xa;5. Crear JWT con user_id&#xa;6. TokenResponse / 200&#xa;&#xa;Fallo -&gt; 401" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="390" y="120" width="300" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="me5" value="CONSULTAR PERFIL&#xa;&#xa;GET /api/v1/auth/me&#xa;1. Leer Bearer token&#xa;2. OAuth2PasswordBearer&#xa;3. JWTProvider.get_sub&#xa;4. GetUserUsecase&#xa;5. UserRepo.get_by_id&#xa;6. UserResponse / 200&#xa;&#xa;Fallo -&gt; 401" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="740" y="120" width="300" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="crud5" value="CRUD REST&#xa;&#xa;GET /users/{id} -&gt; 200 / 404&#xa;PATCH /users/{id} -&gt; UoW + commit&#xa;DELETE /users/{id} -&gt; 204 / 404&#xa;&#xa;UUID invalido -&gt; 422 antes del caso de uso" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="120" width="270" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="return5" value="Todos los flujos devuelven DTOs publicos; nunca exponen password ni password_hash." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=15;fontStyle=1;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="270" y="520" width="850" height="75" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="runtime" name="06 - Arranque persistencia pruebas">
+    <mxGraphModel dx="1452" dy="740" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title6" parent="1" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" value="Arranque, persistencia, migraciones y pruebas" vertex="1">
+          <mxGeometry height="40" width="900" x="40" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="boot6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="ARRANQUE&#xa;&#xa;python -m app&#xa;-&gt; app/__main__.py&#xa;-&gt; start_server()&#xa;-&gt; Uvicorn&#xa;-&gt; create_app(Settings)&#xa;-&gt; routers + extensions&#xa;-&gt; lifespan startup&#xa;-&gt; engine disponible" vertex="1">
+          <mxGeometry height="260" width="300" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="config6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="CONFIGURACION&#xa;&#xa;app/config.py&#xa;Settings Pydantic&#xa;.env&#xa;DB_URL&#xa;JWT_SECRET_KEY&#xa;SERVER_HOST / PORT&#xa;LOG_LEVEL&#xa;&#xa;get_settings usa cache" vertex="1">
+          <mxGeometry height="260" width="270" x="390" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="persist6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="PERSISTENCIA&#xa;&#xa;async engine&#xa;async_session&#xa;AsyncSession&#xa;UserRepo -&gt; DBUser&#xa;BaseUnitOfWork&#xa;commit / rollback / close&#xa;&#xa;PostgreSQL: users" vertex="1">
+          <mxGeometry height="260" width="270" x="710" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="mig6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="MIGRACIONES&#xa;&#xa;Alembic&#xa;alembic.ini&#xa;app/infra/db/migrations&#xa;001_initial_migration&#xa;6d62029bb66e_add_name...&#xa;&#xa;alembic upgrade head" vertex="1">
+          <mxGeometry height="260" width="300" x="1030" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="unit6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="PRUEBAS UNITARIAS&#xa;&#xa;tests/unit/core&#xa;Entidades&#xa;Value objects&#xa;Casos de uso&#xa;MagicMock / AsyncMock&#xa;&#xa;Aislan infraestructura" vertex="1">
+          <mxGeometry height="210" width="280" x="200" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="int6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="PRUEBAS INTEGRACION&#xa;&#xa;tests/integration&#xa;API completa&#xa;ASGITransport&#xa;LifespanManager&#xa;Persistencia&#xa;&#xa;CRUD + auth + health" vertex="1">
+          <mxGeometry height="210" width="280" x="560" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="quality6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" value="CALIDAD&#xa;&#xa;pytest&#xa;ruff check .&#xa;mypy app tests&#xa;ruff format&#xa;pre-commit" vertex="1">
+          <mxGeometry height="210" width="280" x="920" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="b1" edge="1" parent="1" source="boot6" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="config6" value="crea">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b2" edge="1" parent="1" source="config6" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="persist6" value="usa settings">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b3" edge="1" parent="1" source="mig6" style="endArrow=block;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="persist6" value="actualiza schema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b4" edge="1" parent="1" source="int6" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="persist6" value="prueba API y persistencia">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="b5" edge="1" parent="1" source="quality6" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="unit6" value="ejecuta">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="720" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="b6" edge="1" parent="1" source="quality6" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontColor=#000000;fontSize=13;" target="int6" value="ejecuta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
