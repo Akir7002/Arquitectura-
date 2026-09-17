@@ -15,10 +15,10 @@ https://fastapi.tiangolo.com/advanced/settings/
 """
 
 from functools import lru_cache
-from typing import List
+from typing import Annotated, List
 
 from pydantic import AnyUrl, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # --- CORS ---
-    BACKEND_CORS_ORIGINS: List[str] = []
+    BACKEND_CORS_ORIGINS: Annotated[List[str], NoDecode] = []
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
