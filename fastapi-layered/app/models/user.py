@@ -12,7 +12,7 @@ por la documentación oficial de FastAPI.
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, Integer, String, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
 
@@ -35,6 +35,7 @@ class User(Base):
         onupdate=func.now(),
         nullable=False,
     )
+    tasks = relationship("Task", back_populates="owner", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:  # pragma: no cover - solo utilidad de debug
         return f"<User id={self.id} email={self.email!r}>"

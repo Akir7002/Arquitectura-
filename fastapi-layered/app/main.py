@@ -25,6 +25,7 @@ from app.core.config import get_settings
 from app.core.exceptions import DomainError
 from app.db.base import Base
 from app.db.session import engine
+from app.models.task import Task  # noqa: F401 - registra la tabla en metadata
 
 settings = get_settings()
 

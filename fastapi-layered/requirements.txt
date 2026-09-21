@@ -10,6 +10,7 @@ email-validator==2.2.0
 # --- Persistencia (SQLAlchemy 2.0 async + SQLite) ---
 sqlalchemy==2.0.36
 aiosqlite==0.20.0
+asyncpg==0.30.0
 greenlet==3.1.1
 
 # --- Seguridad: hashing de contraseñas y JWT ---
