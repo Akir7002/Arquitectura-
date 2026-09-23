@@ -34,7 +34,7 @@ async def test_tasks_crud(client: AsyncClient):
     assert task["completed"] is False
     assert task["owner_id"]
 
-    list_response = await client.get("/api/v1/tasks", headers=headers)
+    list_response = await client.get("/api/v1/tasks")
     assert list_response.status_code == 200
     assert list_response.json()["total"] == 1
 
@@ -49,12 +49,20 @@ async def test_tasks_crud(client: AsyncClient):
     delete_response = await client.delete(f"/api/v1/tasks/{task['id']}", headers=headers)
     assert delete_response.status_code == 204
 
-    get_response = await client.get(f"/api/v1/tasks/{task['id']}", headers=headers)
+    get_response = await client.get(f"/api/v1/tasks/{task['id']}")
     assert get_response.status_code == 404
 
 
-async def test_tasks_require_authentication(client: AsyncClient):
+async def test_task_reads_are_public(client: AsyncClient):
     response = await client.get("/api/v1/tasks")
+    assert response.status_code == 200
+
+    missing_response = await client.get("/api/v1/tasks/999999")
+    assert missing_response.status_code == 404
+
+
+async def test_task_writes_require_authentication(client: AsyncClient):
+    response = await client.post("/api/v1/tasks", json={"title": "Sin token"})
     assert response.status_code == 401
 
 
@@ -70,6 +78,10 @@ async def test_user_cannot_access_another_users_task(client: AsyncClient):
 
     other_token = await _register_and_login(client, "task-other@example.com", "Other User")
     other_headers = {"Authorization": f"Bearer {other_token}"}
-    response = await client.get(f"/api/v1/tasks/{task_id}", headers=other_headers)
+    response = await client.put(
+        f"/api/v1/tasks/{task_id}",
+        json={"completed": True},
+        headers=other_headers,
+    )
 
     assert response.status_code == 404

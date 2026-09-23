@@ -32,6 +32,18 @@ class TaskRepository:
         )
         return items_result.scalars().all(), total_result.scalar_one()
 
+    async def get_public_by_id(self, task_id: int) -> Optional[Task]:
+        return await self._session.get(Task, task_id)
+
+    async def list_public(
+        self, *, offset: int = 0, limit: int = 20
+    ) -> tuple[Sequence[Task], int]:
+        items_result = await self._session.execute(
+            select(Task).order_by(Task.id).offset(offset).limit(limit)
+        )
+        total_result = await self._session.execute(select(func.count()).select_from(Task))
+        return items_result.scalars().all(), total_result.scalar_one()
+
     async def create(
         self, *, owner_id: int, title: str, description: str | None
     ) -> Task:

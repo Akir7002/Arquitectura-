@@ -40,13 +40,10 @@ async def create_task(
 @router.get("", response_model=TaskListResponse)
 async def list_tasks(
     service: Annotated[TaskService, Depends(get_task_service)],
-    current_user: Annotated[User, Depends(get_current_active_user)],
     page: Annotated[int, Query(ge=1)] = 1,
     page_size: Annotated[int, Query(ge=1, le=100)] = 20,
 ) -> TaskListResponse:
-    tasks, total = await service.list_tasks(
-        owner_id=current_user.id, page=page, page_size=page_size
-    )
+    tasks, total = await service.list_public_tasks(page=page, page_size=page_size)
     return TaskListResponse(
         items=[TaskPublic.model_validate(task) for task in tasks],
         total=total,
@@ -63,10 +60,9 @@ async def list_tasks(
 async def get_task(
     task_id: int,
     service: Annotated[TaskService, Depends(get_task_service)],
-    current_user: Annotated[User, Depends(get_current_active_user)],
 ) -> TaskPublic:
     try:
-        task = await service.get_by_id(task_id, current_user.id)
+        task = await service.get_public_by_id(task_id)
     except UserNotFoundError as exc:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(exc)) from exc
     return TaskPublic.model_validate(task)

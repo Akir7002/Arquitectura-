@@ -19,6 +19,12 @@ class TaskService:
             raise UserNotFoundError(f"Tarea con id={task_id} no encontrada.")
         return task
 
+    async def get_public_by_id(self, task_id: int) -> Task:
+        task = await self._repository.get_public_by_id(task_id)
+        if task is None:
+            raise UserNotFoundError(f"Tarea con id={task_id} no encontrada.")
+        return task
+
     async def list_tasks(
         self, *, owner_id: int, page: int, page_size: int
     ) -> tuple[list[Task], int]:
@@ -26,6 +32,13 @@ class TaskService:
         tasks, total = await self._repository.list(
             owner_id=owner_id, offset=offset, limit=page_size
         )
+        return list(tasks), total
+
+    async def list_public_tasks(
+        self, *, page: int, page_size: int
+    ) -> tuple[list[Task], int]:
+        offset = (page - 1) * page_size
+        tasks, total = await self._repository.list_public(offset=offset, limit=page_size)
         return list(tasks), total
 
     async def update_task(self, task_id: int, owner_id: int, data: TaskUpdate) -> Task:
