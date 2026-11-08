@@ -1,0 +1,94 @@
+<mxfile host="app.diagrams.net" agent="GitHub Copilot" compressed="false" pages="1">
+  <diagram id="ingredients-shopping-list" name="Flujo con ingredientes y lista de compras">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Event Driven Monolith - ingredientes y lista de compras" style="text;html=1;fontSize=24;fontStyle=1;fontColor=#000000;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="900" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="publicLabel" value="FLUJO PUBLICO - sin autenticacion" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="270" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="client" value="Cliente web o movil" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="220" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="publicCatalog" value="GET /public/recipes&#xa;Catalogo publico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="300" y="190" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="publicDetail" value="GET /public/recipes/id&#xa;Detalle publico" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="300" y="310" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="recipeDb" value="CouchDB recipe&#xa;Recetas y catalogo" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="610" y="230" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="publicNote" value="Se ocultan precio, ingredientes detallados e instrucciones" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="610" y="350" width="300" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="privateLabel" value="FLUJO PRIVADO - usuario autenticado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="40" y="500" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="login" value="POST /login&#xa;JWT Bearer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="600" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="purchase" value="Compra confirmada&#xa;estado purchased" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="300" y="600" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="privateDetail" value="GET /get-recipe-details/id&#xa;Ingredientes e instrucciones" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="610" y="500" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="addList" value="POST /shopping-list/from-recipe/id&#xa;Agregar ingredientes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="610" y="620" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="shoppingDb" value="CouchDB shopping-list&#xa;Lista privada por usuario" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="960" y="600" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="listApi" value="GET /shopping-list&#xa;PATCH /shopping-list/item" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="960" y="740" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ingredient" value="Entidad Ingredient&#xa;name, quantity, unit, notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="960" y="230" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="consulta publica" style="endArrow=block;html=1;strokeColor=#82b366;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="client" target="publicCatalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="consulta publica" style="endArrow=block;html=1;strokeColor=#82b366;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="client" target="publicDetail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="lee metadata" style="endArrow=block;html=1;strokeColor=#82b366;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="publicCatalog" target="recipeDb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="lee metadata" style="endArrow=block;html=1;strokeColor=#82b366;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="publicDetail" target="recipeDb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="inicia sesion" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="client" target="login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="habilita acceso" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="login" target="privateDetail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="solo purchased" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="purchase" target="privateDetail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="lee receta completa" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="privateDetail" target="recipeDb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="agrega ingredientes" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="privateDetail" target="addList">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="guarda lista" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="addList" target="shoppingDb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="marca comprado" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="listApi" target="shoppingDb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="ingredientes estructurados" style="dashed=1;endArrow=block;html=1;strokeColor=#9673a6;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="recipeDb" target="ingredient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="consulta o actualiza" style="endArrow=block;html=1;strokeColor=#6c8ebf;fontColor=#000000;fontSize=12;" edge="1" parent="1" source="client" target="listApi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
