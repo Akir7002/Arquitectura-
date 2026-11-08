@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframes - Tablón</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#e8e8e8;color:#222;padding:20px}
+.topbar{background:#2c3e50;color:#fff;border-radius:8px;padding:15px 20px;margin-bottom:25px;display:flex;align-items:center;flex-wrap:wrap;gap:10px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.topbar h1{font-size:1.2rem;margin-right:15px}
+.topbar select{padding:8px 12px;border-radius:6px;border:none;font-size:1rem;min-width:300px}
+.topbar .hint{font-size:.85rem;opacity:.8;margin-left:auto}
+.topbar a{color:#f1c40f;font-size:.85rem}
+.screen{display:none}.screen.active{display:block}
+.canvas{background:#fff;border:1px solid #bbb;border-radius:10px;padding:20px;max-width:1000px;margin:0 auto;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.screen-title{background:#34495e;color:#fff;padding:10px 14px;border-radius:6px;margin-bottom:16px;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+.screen-title .tag{font-size:.8rem;opacity:.8}
+.wf{border:2px dashed #888;background:#fdfdfd;padding:12px;margin-bottom:12px}
+.wf-header{display:flex;justify-content:space-between;align-items:center;border:2px solid #888;background:#ececec;padding:8px 12px;margin-bottom:12px}
+.wf-menu{border:2px solid #888;background:#ddd;width:30px;height:20px;display:flex;flex-direction:column;justify-content:space-around;padding:3px}
+.wf-menu span{background:#888;height:2px;display:block}
+.wf-logo{border:2px solid #888;background:#ddd;font-size:.75rem;padding:2px 8px;text-align:center}
+.wf-user{border:2px solid #888;background:#ddd;width:30px;height:30px;border-radius:50%}
+.wf-group{display:flex}
+.wf-sidebar{width:170px;border:2px solid #888;background:#ececec;padding:10px;margin-right:12px;flex-shrink:0}
+.wf-sidebar .wf-row{border:2px solid #888;background:#ddd;padding:4px;margin-bottom:8px;font-size:.7rem}
+.wf-sidebar .wf-lives{border:2px solid #888;background:#ddd;padding:6px;margin-top:12px;font-size:.7rem}
+.wf-sidebar .wf-dot{display:inline-block;width:10px;height:10px;border:2px solid #888;border-radius:50%;margin-right:3px}
+.wf-main{flex:1;min-width:0}
+.wf-label{border:2px solid #888;background:#ddd;color:#555;font-size:.7rem;padding:3px 6px;letter-spacing:1px;text-align:center}
+.wf-form .wf-field{margin-bottom:12px}
+.wf-form .wf-label{text-align:left;margin-bottom:4px;display:block}
+.wf-form input,.wf-form select,.wf-form textarea{width:100%;border:2px solid #888;background:#fff;padding:8px;font-size:.9rem;color:#555}
+.wf-btn{border:2px solid #888;background:#aaa;color:#fff;padding:8px 14px;font-size:.85rem;text-align:center;display:block;width:100%}
+.wf-btn.wf-btn-light{background:#ddd;color:#333}
+.wf-btn.wf-btn-dark{background:#555;color:#fff}
+.wf-row-f{display:flex;gap:10px;flex-wrap:wrap}
+.wf-badge{border:2px solid #888;background:#ddd;padding:2px 8px;font-size:.7rem;display:inline-block}
+.wf-foot{border:2px solid #888;background:#ececec;padding:8px 12px;font-size:.75rem;text-align:center;margin-top:12px;color:#666}
+.wf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.wf-card{border:2px solid #888;background:#ddd;padding:14px;text-align:center}
+.wf-card .wf-img{border:2px solid #888;background:#ccc;height:60px;margin-bottom:8px}
+.wf-card .wf-txt{border:2px solid #888;background:#fff;padding:4px;font-size:.75rem;margin-bottom:6px}
+.wf-kanban{display:grid;grid-template-columns:1fr 1fr 170px;gap:10px}
+.wf-kanban-col{border:2px solid #888;background:#f4f4f4;padding:8px}
+.wf-task{border:2px solid #888;background:#fff;padding:8px;margin-bottom:8px;font-size:.72rem}
+.wf-task .wf-check{display:inline-block;border:2px solid #888;background:#fff;width:16px;height:16px;vertical-align:middle;margin-right:6px}
+.wf-table{border:2px solid #888;background:#fff}
+.wf-table .wf-tr{display:flex;border-bottom:2px solid #888}
+.wf-table .wf-tr:last-child{border-bottom:none}
+.wf-table .wf-td{flex:1;border-right:2px solid #888;padding:6px;font-size:.72rem}
+.wf-table .wf-td:last-child{border-right:none}
+.wf-table .wf-thead .wf-td{background:#ddd;font-weight:bold}
+.wf-drawer{border:2px solid #888;background:#f4f4f4;padding:12px;margin-top:4px}
+.wf-modal{border:2px solid #555;background:#ececec;padding:16px;max-width:420px;margin:12px auto}
+.wf-toast{border:2px solid #888;background:#ddd;padding:6px 14px;border-radius:20px;font-size:.72rem;text-align:center;max-width:420px;margin:10px auto 0}
+.wf-desc{font-size:.85rem;margin-bottom:12px;color:#555;line-height:1.4}
+.wf-search{border:2px solid #888;background:#fff;padding:6px 10px;font-size:.75rem;flex:1}
+.wf-seg{display:flex;border:2px solid #888}
+.wf-seg div{padding:6px 12px;font-size:.72rem;background:#ddd;border-right:2px solid #888}
+.wf-seg div:last-child{border-right:none}
+@media(max-width:760px){.wf-group{flex-direction:column}.wf-sidebar{width:100%;margin:0 0 12px}.wf-kanban{grid-template-columns:1fr}.wf-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<h1>WIREFRAMES — TABLÓN</h1>
+<select id="screenSelector">
+<option value="screen-login">1. Login (split marca + acceso)</option>
+<option value="screen-kanban">2. Tablón Kanban (vista por defecto)</option>
+<option value="screen-lista">3. Tablón Lista + paginación</option>
+<option value="screen-detalle">4. Detalle tarea + Nueva faena</option>
+<option value="screen-equipo">5. Equipo (cuadrilla)</option>
+<option value="screen-sistema">6. Sistema / Cableado (health + docs)</option>
+</select>
+<span class="hint">Wireframes en baja fidelidad (lo-fi) — espejo de <a href="app-mockup.html">app-mockup.html</a></span>
+</div>
+
+<!-- 1. LOGIN -->
+<div id="screen-login" class="screen">
+<div class="canvas">
+<div class="screen-title">1. Login — Split marca + acceso <span class="tag">ID-01 · POST /auth/login</span></div>
+<div class="wf-group">
+<div class="wf-main" style="margin-right:12px">
+<div class="wf-label" style="margin-bottom:10px;padding:8px">SELLO: TABLÓN · USO INTERNO · v1.4</div>
+<div class="wf" style="min-height:180px;text-align:center"><br>[ TITULAR SERIF ITÁLICA ]<br>"El tablón de la cuadrilla."<br><br><span style="font-size:.75rem;color:#666">[ Sub: sin tableros infinitos… ]<br>[ Meta: ● API en línea · GET /health ]<br>[ Cita: "Ayer se quedó a cero…" — Javi ]</span></div>
+</div>
+<div class="wf-main">
+<div class="wf-label" style="margin-bottom:12px">ENTRAR AL TALLER</div>
+<div class="wf-form">
+<div class="wf-field"><span class="wf-label">Correo</span><input type="text" placeholder="maria@taller.es"></div>
+<div class="wf-field"><span class="wf-label">Clave</span><input type="text" placeholder="••••••••"></div>
+<div class="wf-btn wf-btn-dark" style="margin-bottom:10px">[ Entrar → ]</div>
+<div class="wf-btn wf-btn-light">[ No tengo cuenta — pedir alta ]</div>
+</div>
+<div class="wf-label" style="margin-top:10px">Error 401 → "Ese correo no suena"</div>
+</div>
+</div>
+<div class="wf-foot">Nota: "pedir alta" → toast "(mentira: habla con María)" · cualquier correo con @ entra en el mockup</div>
+</div>
+</div>
+
+<!-- 2. KANBAN -->
+<div id="screen-kanban" class="screen">
+<div class="canvas">
+<div class="screen-title">2. Tablón Kanban — Vista por defecto <span class="tag">ID-02 · GET /tasks</span></div>
+<div class="wf-header"><div class="wf-menu"><span></span><span></span><span></span></div><div class="wf-logo">TABLÓN · Taller Norte</div><div class="wf-user"></div></div>
+<div class="wf-group">
+<div class="wf-sidebar"><div class="wf-row">◧ Tablón (n)</div><div class="wf-row">◐ Equipo (6)</div><div class="wf-row">◈ Cableado [ok]</div><div class="wf-lives">● API ok · 42ms<br>GET /health<br>sesión: ___ · salir ↩</div></div>
+<div class="wf-main">
+<div class="wf-row-f" style="margin-bottom:10px;align-items:center"><div class="wf-label" style="flex:0 0 auto">Tablón de hoy · MARTES 23</div><div class="wf-search">[ ⌕ Buscar faena… ( / ) ]</div><div class="wf-seg"><div>[tablón]</div><div>lista</div></div><div class="wf-btn wf-btn-dark" style="width:auto">[ + Faena ]</div></div>
+<div class="wf-row-f" style="margin-bottom:10px"><span class="wf-badge">[todas]</span><span class="wf-badge">solo mías</span><span class="wf-badge" style="margin-left:auto">N faenas · page_size=20</span></div>
+<div class="wf-kanban">
+<div class="wf-kanban-col"><div class="wf-label">PENDIENTES (n)</div><div class="wf-task"><span class="wf-check"></span>[ Título faena ]<br>[ desc 2 líneas… ]<br>ⓜ dueña · hace 2h · #41</div><div class="wf-task"><span class="wf-check"></span>[ Título faena ]<br>[ desc… ]</div></div>
+<div class="wf-kanban-col"><div class="wf-label">HECHAS (n)</div><div class="wf-task">[✓ Título tachado + sello HECHA ✓]<br>ⓜ dueña · ayer · #38</div><div class="wf-label">Vacío: "Nada hecho aún"</div></div>
+<div class="wf-kanban-col"><div class="wf-label">RAIL 280px</div><div class="wf-task">Ritmo semana<br>[ barra x/y ]</div><div class="wf-task">Cableado<br>200 · 38ms · ?page</div><div class="wf-task">Turno<br>[ María cierra 19:00 ]</div></div>
+</div>
+<div class="wf-label" style="margin-top:10px">Click card → drawer (ID-04) · click ○ → PUT directo + toast · vacío pendientes: "El tablón está limpio. Tómate un café."</div>
+</div>
+</div>
+<div class="wf-foot">Regla: solo 2 columnas porque la API tiene completed: bool — no se inventa "en curso" · TaskListResponse {items, total, page, page_size}</div>
+</div>
+</div>
+
+<!-- 3. LISTA -->
+<div id="screen-lista" class="screen">
+<div class="canvas">
+<div class="screen-title">3. Tablón Lista + paginación <span class="tag">ID-03 · ?page= &amp;page_size=</span></div>
+<div class="wf-header"><div class="wf-menu"><span></span><span></span><span></span></div><div class="wf-logo">TABLÓN · Taller Norte</div><div class="wf-user"></div></div>
+<div class="wf-group">
+<div class="wf-sidebar"><div class="wf-row">◧ Tablón (n)</div><div class="wf-row">◐ Equipo (6)</div><div class="wf-row">◈ Cableado [ok]</div><div class="wf-lives">● API ok · 42ms<br>sesión: ___</div></div>
+<div class="wf-main">
+<div class="wf-row-f" style="margin-bottom:10px;align-items:center"><div class="wf-label">Tablón de hoy</div><div class="wf-search">[ ⌕ Buscar… ]</div><div class="wf-seg"><div>tablón</div><div>[lista]</div></div><div class="wf-btn wf-btn-dark" style="width:auto">[ + Faena ]</div></div>
+<div class="wf-row-f" style="margin-bottom:10px"><span class="wf-badge">[todas]</span><span class="wf-badge">solo mías</span></div>
+<div class="wf-table">
+<div class="wf-tr wf-thead"><div class="wf-td">○</div><div class="wf-td">Faena</div><div class="wf-td">Dueña</div><div class="wf-td">Actualizada</div><div class="wf-td">#id</div></div>
+<div class="wf-tr"><div class="wf-td">○</div><div class="wf-td">[Título + desc 70ch…]</div><div class="wf-td">maria</div><div class="wf-td">hoy 11:20</div><div class="wf-td">#41</div></div>
+<div class="wf-tr"><div class="wf-td">✓</div><div class="wf-td">[Título tachado…]</div><div class="wf-td">javi</div><div class="wf-td">ayer</div><div class="wf-td">#38</div></div>
+<div class="wf-tr"><div class="wf-td">○</div><div class="wf-td">[Título…]</div><div class="wf-td">lucia</div><div class="wf-td">lun</div><div class="wf-td">#36</div></div>
+</div>
+<div class="wf-row-f" style="margin-top:10px;align-items:center"><div class="wf-btn wf-btn-light" style="width:auto">[ ← ]</div><span class="wf-badge">pág 1 / 2</span><div class="wf-btn wf-btn-light" style="width:auto">[ → ]</div><span class="wf-badge" style="margin-left:auto">demo ps=3 · API page_size=20</span></div>
+</div>
+</div>
+<div class="wf-foot">Mismo filtro y orden que kanban · fila click → drawer · "/" enfoca buscar · "Esc" cierra</div>
+</div>
+</div>
+
+<!-- 4. DETALLE -->
+<div id="screen-detalle" class="screen">
+<div class="canvas">
+<div class="screen-title">4. Detalle tarea (drawer) + Nueva faena (modal) <span class="tag">ID-04 · PUT/POST/DELETE /tasks</span></div>
+<div class="wf-header"><div class="wf-menu"><span></span><span></span><span></span></div><div class="wf-logo">TABLÓN · Taller Norte (fondo: kanban atenuado)</div><div class="wf-user"></div></div>
+<div class="wf-group">
+<div class="wf-main" style="margin-right:12px">
+<div class="wf-label" style="margin-bottom:8px">DRAWER 430px · lateral derecho</div>
+<div class="wf-drawer">
+<div class="wf-label">FAENA #41 · PENDIENTE</div>
+<div class="wf" style="margin-top:8px;text-align:center">[ Título serif 24px ]<br><span style="font-size:.72rem">dueña · hace 2h · actualizada hoy 11:20</span></div>
+<div class="wf-label" style="text-align:left">Descripción</div>
+<div class="wf" style="font-size:.78rem;color:#555">[ Párrafo 2-3 líneas… ]</div>
+<div class="wf-label" style="text-align:left">Ficha</div>
+<div class="wf" style="font-size:.75rem;color:#555">[ owner_id · PUT solo dueña · DELETE → 204 ]</div>
+<div class="wf-form"><div class="wf-field"><span class="wf-label">Nota para la cuadrilla</span><input type="text" placeholder="ej. falta la llave…"></div></div>
+<div class="wf-row-f"><div class="wf-btn wf-btn-dark" style="flex:1">[Marcar hecha]</div><div class="wf-btn wf-btn-light" style="flex:1">[Borrar]</div><div class="wf-btn wf-btn-light" style="flex:1">[Cerrar]</div></div>
+</div>
+</div>
+<div class="wf-main">
+<div class="wf-label" style="margin-bottom:8px">MODAL 480px · centrado</div>
+<div class="wf-modal">
+<div class="wf-label">Apuntar faena · POST /tasks → 201</div>
+<div class="wf-form" style="margin-top:10px"><div class="wf-field"><span class="wf-label">Título *</span><input type="text" placeholder="ej. Revisar albarán…"></div>
+<div class="wf-field"><span class="wf-label">Detalle</span><textarea rows="2" placeholder="Lo justo para que otro lo entienda…"></textarea></div>
+<div class="wf-row-f"><div class="wf-btn wf-btn-dark" style="flex:1">[Apuntar →]</div><div class="wf-btn wf-btn-light" style="flex:1">[Cancelar]</div></div></div>
+</div>
+<div class="wf-toast">[ Toast pill: "Tachada ✓ (PUT /tasks/41)" ]</div>
+<div class="wf-desc" style="margin-top:10px">Toast siempre cita el endpoint real. Drawer: "Esc"/scrim cierra. Modal: entra con foco en título.</div>
+</div>
+</div>
+<div class="wf-foot">Capas sobre el tablón — el fondo se oscurece (scrim) · borrar no tiene papelera</div>
+</div>
+</div>
+
+<!-- 5. EQUIPO -->
+<div id="screen-equipo" class="screen">
+<div class="canvas">
+<div class="screen-title">5. Equipo — Cuadrilla <span class="tag">ID-05 · GET /users</span></div>
+<div class="wf-header"><div class="wf-menu"><span></span><span></span><span></span></div><div class="wf-logo">TABLÓN · Taller Norte</div><div class="wf-user"></div></div>
+<div class="wf-group">
+<div class="wf-sidebar"><div class="wf-row">◧ Tablón (n)</div><div class="wf-row">◐ Equipo (6)</div><div class="wf-row">◈ Cableado [ok]</div><div class="wf-lives">● API ok<br>sesión: ___</div></div>
+<div class="wf-main">
+<div class="wf-row-f" style="align-items:center;margin-bottom:8px"><div class="wf-label" style="font-size:.8rem">Quién está en la cuadrilla</div><div class="wf-btn wf-btn-light" style="width:auto">[ + invitar ]</div></div>
+<div class="wf-desc">Solo <b>is_superuser</b> puede pausar cuentas. El resto mira.</div>
+<div class="wf-table">
+<div class="wf-tr wf-thead"><div class="wf-td">Persona</div><div class="wf-td">Rol · faenas · email</div><div class="wf-td">Estado</div><div class="wf-td">Acción</div></div>
+<div class="wf-tr"><div class="wf-td">(AV) María Gil [ADMIN]</div><div class="wf-td">encargada · 14 · maria@…</div><div class="wf-td">● activa</div><div class="wf-td">—</div></div>
+<div class="wf-tr"><div class="wf-td">(AV) Javi Ruiz</div><div class="wf-td">taller · 6 · javi@…</div><div class="wf-td">● activa</div><div class="wf-td">[pausar]</div></div>
+<div class="wf-tr"><div class="wf-td">(AV) Lucía Prats</div><div class="wf-td">caja · 9 · lucia@…</div><div class="wf-td">● activa</div><div class="wf-td">[pausar]</div></div>
+<div class="wf-tr"><div class="wf-td">(AV) Pau Miró</div><div class="wf-td">reparto · 0 · pau@…</div><div class="wf-td">○ pausada</div><div class="wf-td">[activar]</div></div>
+</div>
+<div class="wf-label" style="margin-top:10px">Invitar → "Invitación copiada: taller.es/alta/8f3k"</div>
+</div>
+</div>
+<div class="wf-foot">6 personas como en el mockup · PUT /users para pausar/activar · nunca se expone hashed_password</div>
+</div>
+</div>
+
+<!-- 6. SISTEMA -->
+<div id="screen-sistema" class="screen">
+<div class="canvas">
+<div class="screen-title">6. Sistema / Cableado <span class="tag">ID-06 · /health · /docs</span></div>
+<div class="wf-header"><div class="wf-menu"><span></span><span></span><span></span></div><div class="wf-logo">TABLÓN · Taller Norte</div><div class="wf-user"></div></div>
+<div class="wf-group">
+<div class="wf-sidebar"><div class="wf-row">◧ Tablón (n)</div><div class="wf-row">◐ Equipo (6)</div><div class="wf-row">◈ Cableado [ok]</div><div class="wf-lives">● API ok · 42ms</div></div>
+<div class="wf-main">
+<div class="wf-label" style="margin-bottom:12px">CABLEADO — lo que el mockup respeta de la FastAPI</div>
+<div class="wf-grid" style="grid-template-columns:repeat(2,1fr)">
+<div class="wf-card"><div class="wf-label">● Salud</div><div class="wf-txt">GET /health</div><div class="wf-txt">{"status":"ok","env":"local"}</div><div style="font-size:.72rem;color:#666">liveness k8s · GZip &gt;1KB · CORS localhost</div></div>
+<div class="wf-card"><div class="wf-label">Auth</div><div class="wf-txt">POST /auth/login → JWT</div><div class="wf-txt">register: email+nombre+clave ≥8</div><div style="font-size:.72rem;color:#666">OAuth2 · JWT 30 min</div></div>
+<div class="wf-card"><div class="wf-label">Tareas</div><div class="wf-txt">GET /tasks ?page=&amp;size=</div><div class="wf-txt">TaskListResponse</div><div style="font-size:.72rem;color:#666">completed bool → 2 columnas</div></div>
+<div class="wf-card"><div class="wf-label">Docs</div><div class="wf-txt">/docs · /redoc</div><div class="wf-txt">uvicorn app.main:app</div><div style="font-size:.72rem;color:#666">el mockup enlaza, no re-documenta</div></div>
+</div>
+</div>
+</div>
+<div class="wf-foot">Sin inventar campos · estados: vacío "tablón limpio" · sin conexión: franja óxido + reintento 5s</div>
+</div>
+</div>
+
+<script>
+const selector=document.getElementById('screenSelector');
+const screens=document.querySelectorAll('.screen');
+function showScreen(id){screens.forEach(s=>s.classList.toggle('active',s.id===id));}
+selector.addEventListener('change',function(){showScreen(this.value);});
+showScreen('screen-login');
+</script>
+</body>
+</html>
