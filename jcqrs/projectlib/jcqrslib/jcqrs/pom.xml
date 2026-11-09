@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.jqrslib</groupId>
+    <artifactId>jcqrs</artifactId>
+    <version>1.0.3</version>
+    <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>6.1.5</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>17</maven.compiler.release>
+        <exec.mainClass>com.jqrslib.cqrs.Jcqrs</exec.mainClass>
+    </properties>
+    <description>CQRS (Command Query Responsability Segregation) 
+
+This is a pattern that allows for the separation of read and write operations 
+during data persistence management. One of its main advantages is that it 
+allows for excellent performance, scalability, and security. This unique 
+architecture has the significant advantage of separating read and write 
+processes, thereby minimizing potential merge conflicts at the domain 
+level. 
+
+CQRS (Command Query Responsability Segregation)   
+
+Segregación de Responsabilidades de Comandos y Consultas. Se trata de un 
+patrón que permite separar las operaciones de lectura y escritura durante la 
+gestión de persistencia de datos. Una de sus principales ventajas es que 
+permite obtener un excelente rendimiento, escalabilidad y seguridad. Esta 
+arquitectura tan particular tiene la gran ventaja de separar los procesos de 
+escritura y lectura, minimizando de esta forma potenciales tipos de conflictos 
+de fusión a nivel de dominio.</description>
+    <name>JCQRS</name>
+</project>

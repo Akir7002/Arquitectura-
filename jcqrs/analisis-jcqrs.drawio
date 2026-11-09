@@ -1,0 +1,78 @@
+<mxfile host="app.diagrams.net" agent="GitHub Copilot" compressed="false" pages="4">
+  <diagram id="overview-jcqrs" name="01 - Vista general">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="JCQRS - arquitectura real del proyecto" style="text;html=1;fontSize=24;fontStyle=1;align=left;" vertex="1" parent="1"><mxGeometry x="40" y="30" width="700" height="40" as="geometry"/></mxCell>
+        <mxCell id="client" value="Cliente HTTP&#xa;Web / Postman" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="40" y="180" width="190" height="90" as="geometry"/></mxCell>
+        <mxCell id="api" value="API REST&#xa;&#xa;Spring MVC&#xa;ClientesController&#xa;/clientes" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="310" y="150" width="230" height="150" as="geometry"/></mxCell>
+        <mxCell id="cqrs" value="CQRS&#xa;&#xa;Mediator&#xa;Requests&#xa;Handlers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;fontStyle=1;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="620" y="150" width="230" height="150" as="geometry"/></mxCell>
+        <mxCell id="queries" value="LECTURA&#xa;&#xa;ClientesAllHandler&#xa;ClientesByIdHandler&#xa;Datos fijos en memoria" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="930" y="125" width="250" height="200" as="geometry"/></mxCell>
+        <mxCell id="commands" value="ESCRITURA&#xa;&#xa;Add / Update / Delete&#xa;Handlers&#xa;Solo System.out" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="930" y="380" width="250" height="170" as="geometry"/></mxCell>
+        <mxCell id="db" value="SIN BASE DE DATOS&#xa;&#xa;No JDBC / JPA&#xa;No repositorios&#xa;No persistencia" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=14;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="620" y="420" width="230" height="150" as="geometry"/></mxCell>
+        <mxCell id="e1" value="HTTP :9898" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="client" target="api"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" value="send request" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="api" target="cqrs"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="queries" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="cqrs" target="queries"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="commands" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="cqrs" target="commands"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="no persistence" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="commands" target="db"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="in memory" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="queries" target="db"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="layers-jcqrs" name="02 - Capas y carpetas">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title2" value="Capas y carpetas del proyecto" style="text;html=1;fontSize=24;fontStyle=1;align=left;" vertex="1" parent="1"><mxGeometry x="40" y="30" width="700" height="40" as="geometry"/></mxCell>
+        <mxCell id="layer1" value="1. ENTRADA&#xa;&#xa;projectdev/src/main/java/.../controller&#xa;&#xa;ClientesController.java&#xa;Endpoints REST&#xa;ResponseEntity" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="40" y="120" width="280" height="400" as="geometry"/></mxCell>
+        <mxCell id="layer2" value="2. APLICACION&#xa;&#xa;application/Command&#xa;application/Query&#xa;application/Request&#xa;application/Response&#xa;&#xa;Handlers y DTOs" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="370" y="120" width="280" height="400" as="geometry"/></mxCell>
+        <mxCell id="layer3" value="3. CQRS CORE&#xa;&#xa;cqrs/IRequest.java&#xa;cqrs/IRequestHandler.java&#xa;cqrs/Mediator.java&#xa;RequestHandlerAliasConfig.java" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="700" y="120" width="280" height="400" as="geometry"/></mxCell>
+        <mxCell id="layer4" value="4. RUNTIME&#xa;&#xa;Spring Boot 3.5.3&#xa;Embedded Tomcat&#xa;ApplicationContext&#xa;application.properties&#xa;Puerto 9898" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="1030" y="120" width="280" height="400" as="geometry"/></mxCell>
+        <mxCell id="l1" value="HTTP" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="layer4" target="layer1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="l2" value="delegates" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="layer1" target="layer2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="l3" value="uses mediator" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="layer2" target="layer3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="l4" value="managed by" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="layer3" target="layer4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="note" value="Persistencia pendiente: no existe una capa repository ni un adaptador de base de datos." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="250" y="650" width="850" height="70" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="components-jcqrs" name="03 - Componentes">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title3" value="Componentes y conexiones CQRS" style="text;html=1;fontSize=24;fontStyle=1;align=left;" vertex="1" parent="1"><mxGeometry x="40" y="30" width="700" height="40" as="geometry"/></mxCell>
+        <mxCell id="presentation" value="PRESENTACION&#xa;&#xa;ClientesController&#xa;GET /clientes&#xa;GET /clientes/{id}&#xa;POST /clientes/add&#xa;PUT /clientes/update&#xa;DELETE /clientes/delete/{id}" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="40" y="130" width="250" height="390" as="geometry"/></mxCell>
+        <mxCell id="mediator" value="MEDIADOR&#xa;&#xa;Mediator&#xa;&#xa;ApplicationContext&#xa;busca IRequestHandler&#xa;evalua canHandle&#xa;ejecuta handle" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="350" y="130" width="250" height="390" as="geometry"/></mxCell>
+        <mxCell id="queries3" value="QUERIES&#xa;&#xa;ClientesAllHandler&#xa;ClientesByIdHandler&#xa;&#xa;ClientesResponse" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="660" y="130" width="250" height="390" as="geometry"/></mxCell>
+        <mxCell id="commands3" value="COMMANDS&#xa;&#xa;ClientesAddHandler&#xa;ClientesUpdateHandler&#xa;ClientesDeleteHandler&#xa;&#xa;System.out" style="swimlane;html=1;rounded=0;fillColor=#ffffff;strokeColor=#000000;fontSize=14;horizontal=1;startSize=32;verticalAlign=top;spacingTop=10;" vertex="1" parent="1"><mxGeometry x="970" y="130" width="250" height="390" as="geometry"/></mxCell>
+        <mxCell id="c1" value="request" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="presentation" target="mediator"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c2" value="dispatch query" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="mediator" target="queries3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c3" value="dispatch command" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="mediator" target="commands3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c4" value="response" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="queries3" target="presentation"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="c5" value="status 1 or 0" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="commands3" target="presentation"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="note3" value="Todos los componentes se ejecutan dentro del mismo proceso Spring Boot. No hay repositorio, cola ni base de datos." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="220" y="650" width="850" height="70" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="flow-jcqrs" name="04 - Flujo de endpoints">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title4" value="Flujo de una solicitud y persistencia actual" style="text;html=1;fontSize=24;fontStyle=1;align=left;" vertex="1" parent="1"><mxGeometry x="40" y="30" width="900" height="40" as="geometry"/></mxCell>
+        <mxCell id="step1" value="1&#xa;Cliente HTTP&#xa;GET /clientes" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="50" y="170" width="180" height="100" as="geometry"/></mxCell>
+        <mxCell id="step2" value="2&#xa;ClientesController&#xa;new ClientesAllRequest()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="300" y="170" width="220" height="100" as="geometry"/></mxCell>
+        <mxCell id="step3" value="3&#xa;Mediator.send&#xa;busca handler compatible" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="590" y="170" width="220" height="100" as="geometry"/></mxCell>
+        <mxCell id="step4" value="4&#xa;ClientesAllHandler&#xa;crea tres objetos" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="880" y="170" width="220" height="100" as="geometry"/></mxCell>
+        <mxCell id="step5" value="5&#xa;Respuesta JSON&#xa;HTTP 200" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;" vertex="1" parent="1"><mxGeometry x="1170" y="170" width="180" height="100" as="geometry"/></mxCell>
+        <mxCell id="write1" value="POST / PUT / DELETE&#xa;Command handler&#xa;imprime request&#xa;devuelve 1&#xa;NO persiste" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="430" y="420" width="300" height="150" as="geometry"/></mxCell>
+        <mxCell id="db4" value="Estado final&#xa;&#xa;Sin base de datos&#xa;Sin cambios duraderos&#xa;Lista de lectura intacta" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=15;verticalAlign=top;spacingTop=12;" vertex="1" parent="1"><mxGeometry x="820" y="420" width="300" height="150" as="geometry"/></mxCell>
+        <mxCell id="f1" value="HTTP" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="step1" target="step2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f2" value="send" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="step2" target="step3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f3" value="handle" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="step3" target="step4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f4" value="JSON" style="endArrow=block;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="step4" target="step5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f5" value="escrituras simuladas" style="endArrow=block;dashed=1;html=1;strokeColor=#000000;fontSize=13;" edge="1" parent="1" source="write1" target="db4"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
