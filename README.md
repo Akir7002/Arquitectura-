@@ -579,3 +579,11 @@ public class ClientesUpdateCommand implements IRequestHandler<ClientesUpdateRequ
 }
 ```
 
+## Entidades adicionales propuestas
+
+El proyecto puede ampliarse con entidades como `Categorias`, `Productos`, `Proveedores`, `Pedidos`, `DetallePedido`, `MovimientosStock`, `Facturas`, `Pagos`, `Usuarios` y `Roles`. En [`ENTIDADES_PROPUESTAS.md`](./ENTIDADES_PROPUESTAS.md) se describen sus campos sugeridos, endpoints, artefactos CQRS, reglas de negocio, entidades técnicas (`EventosDominio`, `OutboxMessages`) y un orden de implementación por fases.
+
+## Arranque y sustentación
+
+La guía paso a paso para iniciar la API, probarla y explicar su flujo está en [`GUIA_ARRANQUE_Y_FLUJO.md`](./GUIA_ARRANQUE_Y_FLUJO.md). Incluye comandos para PowerShell, CMD, Git Bash, IDE y JAR, además de un guion de demostración y las limitaciones actuales del proyecto.
+
