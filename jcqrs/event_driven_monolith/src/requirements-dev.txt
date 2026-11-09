@@ -1,2 +1,0 @@
-mypy==1.16.0
-pipdeptree==2.26.1
